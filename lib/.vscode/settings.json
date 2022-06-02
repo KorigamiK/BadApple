@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.css": "css",
+    "*.crawljob": "json",
+    "array": "cpp",
+    "hash_map": "cpp",
+    "hash_set": "cpp",
+    "string_view": "cpp"
+  }
+}
