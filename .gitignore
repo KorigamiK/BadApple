@@ -8,7 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+
+# Required for deploying to gh-pages
+# dist
+
 dist-ssr
 *.local
 

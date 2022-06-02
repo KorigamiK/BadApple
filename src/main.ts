@@ -7,7 +7,6 @@ var favicon = document.getElementById("favicon");
 const canvas = document.getElementById("bad-apple")! as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
 canvas.className = "fav-canvas";
-// document.body.appendChild(canvas);
 
 const height = 16;
 const width = 16;
@@ -62,6 +61,7 @@ const main = async () => {
 
   for (let number = 0; number < frames.length; number++) {
     const frame = frames[number];
+    // https://stackoverflow.com/questions/13826319/copy-a-2-dimensional-pixel-array-to-a-javascript-canvas
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         var s = 4 * i * width + 4 * j; // calculate the index in the array
