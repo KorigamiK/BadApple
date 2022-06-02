@@ -53,7 +53,7 @@ const set_favicon = () => {
 };
 
 const main = async () => {
-  const frames_csv = await (await fetch("/frames.csv")).text();
+  const frames_csv = await (await fetch("/BadApple/frames.csv")).text();
   const frames = load_frames(frames_csv);
 
   const imgData = ctx!.getImageData(0, 0, 16, 16);
