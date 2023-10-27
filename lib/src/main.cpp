@@ -1,47 +1,51 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
-#include <opencv2/videoio.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
-
-#define print(x) std::cout << x << '\n'
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/videoio.hpp>
 
 int main(int argc, char const *argv[])
 {
-  cv::VideoCapture badAppleVid("/home/korigamik/Dev/projects/tohou/apple-favicon/lib/vid/badapple.mp4");
+  cv::VideoCapture badAppleVid("vid/badapple.mp4");
   if (!badAppleVid.isOpened())
   {
-    print("could not open file");
+    std::cout << "Error opening video stream or file" << std::endl;
     return -1;
   }
 
-  const int CONSOLE_WIDTH_CHAR = 80;
-  const int VID_WIDTH = (int)badAppleVid.get(cv::CAP_PROP_FRAME_WIDTH),
-            VID_HEIGHT = (int)badAppleVid.get(cv::CAP_PROP_FRAME_HEIGHT),
-            VID_WIDTH_CONSOLE = CONSOLE_WIDTH_CHAR,
-            VID_HEIGHT_CONSOLE = VID_HEIGHT * CONSOLE_WIDTH_CHAR / (VID_WIDTH * 2),
-            FRAME_SKIP = (int)badAppleVid.get(cv::CAP_PROP_FPS) / 5, // 5 FPS
-      TOTAL_FRAMES = (int)badAppleVid.get(cv::CAP_PROP_FRAME_COUNT) / FRAME_SKIP;
-  const auto CONSOLE_FRAME_SIZE = cv::Size(VID_WIDTH_CONSOLE, VID_HEIGHT_CONSOLE);
+  const int EXPORT_WIDTH = 80;
+  const int VID_WIDTH_CONSOLE = EXPORT_WIDTH;
+  const int VID_WIDTH =
+      static_cast<int>(badAppleVid.get(cv::CAP_PROP_FRAME_WIDTH));
+  const int VID_HEIGHT =
+      static_cast<int>(badAppleVid.get(cv::CAP_PROP_FRAME_HEIGHT));
+  const int VID_HEIGHT_CONSOLE = VID_HEIGHT * EXPORT_WIDTH / (VID_WIDTH * 2);
+  const int FRAME_SKIP =
+      static_cast<int>(badAppleVid.get(cv::CAP_PROP_FPS) / 5); // 5 FPS
+  const int TOTAL_FRAMES =
+      static_cast<int>(badAppleVid.get(cv::CAP_PROP_FRAME_COUNT) / FRAME_SKIP);
+  const auto CONSOLE_FRAME_SIZE =
+      cv::Size(VID_WIDTH_CONSOLE, VID_HEIGHT_CONSOLE);
 
-  print(VID_HEIGHT);
-  print(VID_WIDTH);
+  std::cout << "Video width: " << VID_WIDTH << std::endl;
+  std::cout << "Video height: " << VID_HEIGHT << std::endl;
+  std::cout << "Total frames: " << TOTAL_FRAMES << std::endl;
+  std::cout << "Total seconds: " << TOTAL_FRAMES / 5 << std::endl;
 
   cv::Mat vidFrame;
   badAppleVid >> vidFrame;
 
-  cv::namedWindow("w", 1);
+  // cv::namedWindow("w", 1);
   std::ofstream myfile("frames.csv");
   while (!vidFrame.empty())
   {
-
     badAppleVid >> vidFrame;
     vidFrame.convertTo(vidFrame, cv::COLOR_BGR2GRAY);
     cv::resize(vidFrame, vidFrame, cv::Size(16, 16));
     myfile << cv::format(vidFrame, cv::Formatter::FMT_CSV);
-    cv::imshow("w", vidFrame);
+    // cv::imshow("w", vidFrame);
 
     print(vidFrame);
 
@@ -51,5 +55,7 @@ int main(int argc, char const *argv[])
     // cv::waitKey(200); // waits to display frame
   }
   myfile.close();
+
+  std::cout << "\nFrames written to frames.csv" << std::endl;
   return 0;
 }

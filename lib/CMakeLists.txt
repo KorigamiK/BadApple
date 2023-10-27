@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14.0)
 
 set(LOCAL_PROJECT_NAME        "BadApple")
-set(LOCAL_PROJECT_VERSION     "0.0.1")
+set(LOCAL_PROJECT_VERSION     "0.0.2")
 set(LOCAL_PROJECT_DESCRIPTION "Description")
 
 project(
@@ -11,9 +11,6 @@ project(
   LANGUAGES CXX
 )
 
-
-include(CTest)
-enable_testing()
 
 set(CPACK_PROJECT_NAME ${LOCAL_PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${LOCAL_PROJECT_VERSION})
@@ -41,7 +38,7 @@ set(OPTIONS
 list(TRANSFORM HEADERS PREPEND "include/")
 list(TRANSFORM SOURCES PREPEND "src/")
 
-SET( CMAKE_EXE_LINKER_FLAGS   "-L/usr/local/lib")
+SET(CMAKE_EXE_LINKER_FLAGS "-L/usr/local/lib")
 
 add_executable(${LOCAL_PROJECT_NAME})
 
@@ -62,8 +59,6 @@ target_link_libraries(${LOCAL_PROJECT_NAME}
   ${OpenCV_LIBS}
 )
 
-set_target_properties(${LOCAL_PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "bin/")
-
 target_compile_definitions(${LOCAL_PROJECT_NAME} PRIVATE ${DEFINES})
 target_compile_options(${LOCAL_PROJECT_NAME} PRIVATE ${OPTIONS})
 
@@ -74,5 +69,11 @@ message(STATUS "OpenCV library status:")
 message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
+
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E create_symlink
+  ${CMAKE_CURRENT_SOURCE_DIR}/vid
+  ${CMAKE_CURRENT_BINARY_DIR}/vid
+)
 
 include(CPack)
