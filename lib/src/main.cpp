@@ -6,11 +6,9 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
   cv::VideoCapture badAppleVid("vid/badapple.mp4");
-  if (!badAppleVid.isOpened())
-  {
+  if (!badAppleVid.isOpened()) {
     std::cout << "Error opening video stream or file" << std::endl;
     return -1;
   }
@@ -37,22 +35,21 @@ int main(int argc, char const *argv[])
   cv::Mat vidFrame;
   badAppleVid >> vidFrame;
 
-  // cv::namedWindow("w", 1);
+  cv::namedWindow("w", 1);
   std::ofstream myfile("frames.csv");
-  while (!vidFrame.empty())
-  {
+  while (!vidFrame.empty()) {
     badAppleVid >> vidFrame;
     vidFrame.convertTo(vidFrame, cv::COLOR_BGR2GRAY);
     cv::resize(vidFrame, vidFrame, cv::Size(16, 16));
     myfile << cv::format(vidFrame, cv::Formatter::FMT_CSV);
-    // cv::imshow("w", vidFrame);
+    cv::imshow("w", vidFrame);
 
     print(vidFrame);
 
     for (int i = 0; i < FRAME_SKIP; i++)
       badAppleVid >> vidFrame;
 
-    // cv::waitKey(200); // waits to display frame
+    cv::waitKey(200); // waits to display frame
   }
   myfile.close();
 
