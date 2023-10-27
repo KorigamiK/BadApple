@@ -2,10 +2,26 @@
 
 ![Bad Apple](./public/badapple.png)
 
-The internet challenge of playing the [Bad Apple!! PV](https://www.youtube.com/watch?v=FtutLA63Cp8) on as many platforms and interfaces as possible
+The internet challenge of playing the
+[Bad Apple!! PV](https://www.youtube.com/watch?v=FtutLA63Cp8) on as many
+platforms and interfaces as possible
 
-As the occasion of the 15th anniversary of the "Bad Apple!!" remix by Alstroemeria Records featuring nomico happens, this small project celebrates its repute.
+As the occasion of the 15th anniversary of the "Bad Apple!!" remix by
+Alstroemeria Records featuring nomico happens, this small project celebrates its
+repute.
 
-See the _Bad Apple!! PV_ playing in your browser's favicon as you navigate to the website with the lyrics :D
+See the _Bad Apple!! PV_ playing in your browser's favicon as you navigate to
+the website with the lyrics :D
 
-The project can easily be extended to any video or a series of images. It's using OpenCV's glorious API to figure out the frame.
+The project can easily be extended to any video or a series of images. It's
+using OpenCV's glorious API to figure out the frame.
+
+## Building
+
+Check the docs of the [`badapple/lib`](./lib/README.md) directory
+
+Finally run this build command to push the changes to the dist directory:
+
+```sh
+npm run build
+```

@@ -30,3 +30,4 @@ build
 !build/bin
 
 badapple.mp4
+.cache/
