@@ -9,8 +9,8 @@
     "generate": "ts-node --compiler-options '{\"module\":\"CommonJS\"}'  generate.mts"
   },
   "devDependencies": {
-    "@types/node": "^17.0.36",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.9"
+    "@types/node": "^20.8.9",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
   }
 }
